@@ -1,6 +1,6 @@
 # A Light-weight Strategy for Restraining Gender Biases in Neural Rankers
 
-This repository contains the code and resources for our proposed bias-aware negative sampling strategy. Our proposed strategy is capable of decreasing the level of gender bias in neural ranking models, while maintaining a comparable level of retrieval effectiveness,and does not require any changes to the architecture or loss function of SOTA neural rankers. We note that due to space limitation by github, we have uploaded trained neural ranking models, original training dataset, fairness-aware training dataset, and trec run files of MS MARCO dev small here.
+This repository contains the code and resources for our proposed bias-aware negative sampling strategy. Our proposed strategy is capable of decreasing the level of gender bias in neural ranking models, while maintaining a comparable level of retrieval effectiveness,and does not require any changes to the architecture or loss function of SOTA neural rankers. We note that due to space limitation by github, we have uploaded trained neural ranking models, original training dataset, fairness-aware training dataset, and trec run files of MS MARCO dev small [here](https://drive.google.com/file/d/1h_az0o0UNX_-6yxIzmBRNGWTykbUY3Lj/view?usp=sharing).
 
 Table 1 shows top 3 documents of the re-ranked list of documents that are ranked by BERT-Tiny model for two fairness-sensitive queries. We can observe that the third document of the first query and the second document of the second query have inclination towards male gender and represent supervisor and governor as male-dominated positions. However, these biased documents have lower position in the re-ranked list of our proposed fairness-aware version of the model. We note that none of these biased documents are not considered as the relevance judgment documents of these queries. Therefore, ranking these documents in a lower position would not impact on the performance of the model.
 #### Table 1: Top 3 re-ranked documents by the original BERT-Tiny model.
@@ -215,6 +215,93 @@ We adopt two bias measurement metrics to calculate the level of biases within th
     <td class="tg-8d8j">43.29%</td>
     <td class="tg-8d8j">0.0254</td>
     <td class="tg-8d8j">28.05%</td>
+  </tr>
+</tbody>
+</table>
+
+## Comparative Analysis
+We also compare our proposed strategy with ADVBERT which is the state-of-the-art model that leverages an adversarial training process in order to remove gender-related information. Since the authors shared their trained models based on BERT-Tiny and BERT-Mini and only for QS2, we compare our work with AdvBert in Table 4 based on these two shared models and on the QS2 query set in terms of retreival effectiveness, the level of fairness, and the level of bias.
+#### Table 4: Comparing AdvBert training strategy and our approach at cut-off 10.
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-0lax" rowspan="2">Neural Ranker</th>
+    <th class="tg-0lax" rowspan="2">Training<br>Schema</th>
+    <th class="tg-0lax" rowspan="2">MRR@10</th>
+    <th class="tg-8d8j" colspan="2">NFaiRR</th>
+    <th class="tg-8d8j" colspan="4">ARaB</th>
+  </tr>
+  <tr>
+    <th class="tg-7zrl">Value</th>
+    <th class="tg-7zrl">Improvement</th>
+    <th class="tg-7zrl">TF</th>
+    <th class="tg-7zrl">Reduction</th>
+    <th class="tg-7zrl">Boolean</th>
+    <th class="tg-7zrl">Reduction</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0lax" rowspan="3">BERT-Tiny</td>
+    <td class="tg-7zrl">Original <br><a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/215_neutral_queries/bert_tiny/ranked_list_original.trec" target="_top"> (Run)</td>
+    <td class="tg-7zrl">0.1750</td>
+    <td class="tg-7zrl">0.8688</td>
+    <td class="tg-7zrl">-</td>
+    <td class="tg-2b7s">0.0356</td>
+    <td class="tg-7zrl">-</td>
+    <td class="tg-2b7s">0.0296</td>
+    <td class="tg-7zrl">-</td>
+  </tr>
+  <tr>
+    <td class="tg-7zrl">ADVBERT <br><a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/215_neutral_queries/bert_tiny/ranked_list_advbert_tiny.trec" target="_top"> (Run)</td>
+    <td class="tg-7zrl">0.1361</td>
+    <td class="tg-7zrl">0.9257</td>
+    <td class="tg-7zrl">6.55%</td>
+    <td class="tg-2b7s">0.0245</td>
+    <td class="tg-7zrl">31.18%</td>
+    <td class="tg-2b7s">0.0236</td>
+    <td class="tg-7zrl">20.27%</td>
+  </tr>
+  <tr>
+    <td class="tg-7zrl">Ours <br><a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/215_neutral_queries/bert_tiny/ranked_list_fairness_aware.trec" target="_top"> (Run)</td>
+    <td class="tg-7zrl">0.1497</td>
+    <td class="tg-7zrl">0.9752</td>
+    <td class="tg-7zrl">12.25%</td>
+    <td class="tg-2b7s">0.0099</td>
+    <td class="tg-7zrl">72.19%</td>
+    <td class="tg-2b7s">0.0115</td>
+    <td class="tg-7zrl">61.15%</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax" rowspan="3">BERT-Mini</td>
+    <td class="tg-7zrl">Original <br><a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/215_neutral_queries/bert_mini/ranked_list_original.trec" target="_top"> (Run)</td>
+    <td class="tg-7zrl">0.2053</td>
+    <td class="tg-7zrl">0.8742</td>
+    <td class="tg-7zrl">-</td>
+    <td class="tg-2b7s">0.0300</td>
+    <td class="tg-7zrl">-</td>
+    <td class="tg-2b7s">0.0251</td>
+    <td class="tg-7zrl">-</td>
+  </tr>
+  <tr>
+    <td class="tg-7zrl">ADVBERT <br><a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/215_neutral_queries/bert_mini/ranked_list_advbert_mini.trec" target="_top"> (Run)</td>
+    <td class="tg-7zrl">0.1515</td>
+    <td class="tg-7zrl">0.9410</td>
+    <td class="tg-7zrl">7.64%</td>
+    <td class="tg-2b7s">0.0081</td>
+    <td class="tg-7zrl">73.00%</td>
+    <td class="tg-2b7s">0.0032</td>
+    <td class="tg-7zrl">87.26%</td>
+  </tr>
+  <tr>
+    <td class="tg-7zrl">Ours <br><a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/215_neutral_queries/bert_mini/ranked_list_fairness_aware.trec" target="_top"> (Run)</td>
+    <td class="tg-7zrl">0.2000</td>
+    <td class="tg-7zrl">0.9683</td>
+    <td class="tg-7zrl">10.76%</td>
+    <td class="tg-2b7s">0.0145</td>
+    <td class="tg-7zrl">51.67%</td>
+    <td class="tg-2b7s">0.0113</td>
+    <td class="tg-7zrl">54.98%</td>
   </tr>
 </tbody>
 </table>
