@@ -1,9 +1,9 @@
 # A Light-weight Strategy for Restraining Gender Biases in Neural Rankers
 
 This repository contains the code and resources for our proposed bias-aware negative sampling strategy. Our proposed strategy is capable of decreasing the level of gender bias in neural ranking models, while maintaining a comparable level of retrieval effectiveness,and does not require any changes to the architecture or loss function of SOTA neural rankers.
-
-Table 1 shows top 3 documents of the re-ranked list of documents that are ranked by BERT-Tiny model for two fairness-sensitive queries. We can observe that the third document of the first query and the second document of the second query have inclination towards male gender and represent supervisor and governor as male-dominated positions. However, these biased documents have lower position in the re-ranked list of our proposed fairness-aware version of the model. We note that none of these biased documents are not considered as the relevance judgment documents of these queries. Therefore, ranking these documents in a lower position would not impact on the performance of the model.
-#### Table 1: Top 3 re-ranked documents by the original BERT-Tiny model.
+## Example of Bias in IR
+Table 1 shows top 3 documents of the re-ranked list of documents that are ranked by the BERT model for two fairness-sensitive queries. We can observe that the third document of the first query and the second document of the second query have inclination towards male gender and represent supervisor and governor as male-oriented positions. However, these biased documents have lower position in the re-ranked list of our proposed fairness-aware version of the model. We note that these biased documents are not considered as the relevance judgment documents of these queries. Therefore, ranking these documents in a lower position would not impact on the performance of the model.
+#### Table 1: Top 3 re-ranked documents by the original BERT model.
 <table class="tg">
 <thead>
   <tr>
@@ -308,3 +308,24 @@ We also compare our proposed strategy with ADVBERT which is the state-of-the-art
 
 ## Resources
  We note that due to space limitation of github, we have uploaded trained neural ranking models, original training dataset, fairness-aware training dataset, and trec run files of MS MARCO dev small [here](https://drive.google.com/file/d/1h_az0o0UNX_-6yxIzmBRNGWTykbUY3Lj/view?usp=sharing).
+
+## Usage
+##### In order to train any other neural ranking model with our proposed negative sampling strategy you can follow the process below:
+1. You need to first download the fairness-aware training dataset from [here](https://drive.google.com/file/d/1h_az0o0UNX_-6yxIzmBRNGWTykbUY3Lj/view?usp=sharing) which consists of 20 negative sample documents for each query. Among these 20 negative sample documents, 60% of the documents (equivalant to 12 documents) are the ones that had the highest level of bias among the top-1000 retreived documents for that query by  BM25.
+2. Followed by that, using the cross-encoder architecture, that passes two sequence (query and candidate document) to the transformer model, you can train your desired model. In order to do so, you can use the cross encoder architecture of [Sentence Transformer Library](https://github.com/UKPLab/sentence-transformers/blob/master/examples/training/ms_marco/train_cross-encoder_scratch.py) and set the training parameters of the model as well as the training dataset which would be the fairness-aware training dataset.
+3. Once your model is trained, you can rerank any list of documents for a given query using the `reranker.py` script that takes the trained model latest checkpoint and rerank the list as follows:
+```
+python reranker.py\
+     -checkpoint path to the checkpoint of the latest model \
+     -queries path to the queries .tsv file \
+     -run path to the run .trec file \
+     -res path to the result folder
+```
+4. In order to calculate the MRR of re-ranked run file of the model you can use the `MRR_calculator.py` script as follows:
+```
+python MRR_calculator.py \
+ -qrels  path to the qrels file \
+ -run path to the re-ranked run file obtained from the previous step \
+ -result path to result
+```
+5. Finally, to calculate the level of bias using ARaB metric and NFaiRR metrics for the re-ranked run files you can use the provided scripts that are taken from Navid Rekabsaz repositories ([ARaB](https://github.com/navid-rekabsaz/GenderBias_IR) and [NFaiRR](https://github.com/CPJKU/FairnessRetrievalResults)) and just have some minor changes so as to be applied for our work.
