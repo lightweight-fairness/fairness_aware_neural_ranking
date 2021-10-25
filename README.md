@@ -89,7 +89,7 @@ We adopt two bias measurement metrics to calculate the level of biases within th
 </thead>
 <tbody>
   <tr>
-    <td class="tg-0lax" rowspan="6">QS1</td>
+    <td class="tg-0lax" rowspan="6"><a href="https://github.com/navid-rekabsaz/GenderBias_IR/blob/master/resources/queries_gender_annotated.csv" target="_top"> QS1</td>
     <td class="tg-0lax" rowspan="2">BERT<br>(base uncased)</td>
     <td class="tg-7zrl">Original <br><a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/1765_neutral_queries/bert_base_uncased/ranked_list_original.trec" target="_top"> (Run)</td>
     <td class="tg-8d8j">0.3494</td>
@@ -153,7 +153,7 @@ We adopt two bias measurement metrics to calculate the level of biases within th
     <td class="tg-8d8j">11.03%</td>
   </tr>
   <tr>
-    <td class="tg-0lax" rowspan="6">QS2</td>
+    <td class="tg-0lax" rowspan="6"><a href="https://github.com/CPJKU/FairnessRetrievalResults/blob/main/dataset/msmarco_passage.dev.fair.tsv" target="_top"> QS2</td>
     <td class="tg-0lax" rowspan="2">BERT<br>(base uncased)</td>
     <td class="tg-7zrl">Original <br><a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/215_neutral_queries/bert_base_uncased/ranked_list_original.trec" target="_top"> (Run)</td>
     <td class="tg-8d8j">0.2229</td>
