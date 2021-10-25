@@ -15,7 +15,7 @@ parser.add_argument('--collection-path', action='store', dest='collection_path',
                     default="/share/cp/datasets/ir/msmarco/passage/processed/collection.clean.tsv",
                     help='path the the collection file in tsv format (docid [tab] doctext)')
 parser.add_argument('--representative-words-path', action='store', dest='representative_words_path',
-                    default="../resources/wordlist_protectedattribute_gender.txt",
+                    default="resources/wordlist_gender_representative.txt",
                     help='path to the list of representative words which define the protected attribute')
 parser.add_argument('--threshold', action='store', type=int, default=1,
                     help='threshold on the number of sensitive words')
