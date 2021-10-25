@@ -1,6 +1,6 @@
 # A Light-weight Strategy for Restraining Gender Biases in Neural Rankers
 
-This repository contains the code and resources for our proposed bias-aware negative sampling strategy. Our proposed strategy is capable of decreasing the level of gender bias in neural ranking models, while maintaining a comparable level of retrieval effectiveness,and does not require any changes to the architecture or loss function of SOTA neural rankers. 
+This repository contains the code and resources for our proposed bias-aware negative sampling strategy. Our proposed strategy is capable of decreasing the level of gender bias in neural ranking models, while maintaining a comparable level of retrieval effectiveness,and does not require any changes to the architecture or loss function of SOTA neural rankers. We note that due to space limitation by github, we have uploaded trained neural ranking models, original training dataset, fairness-aware training dataset, and trec run files of MS MARCO dev small here.
 
 Table 1 shows top 3 documents of the re-ranked list of documents that are ranked by BERT-Tiny model for two fairness-sensitive queries. We can observe that the third document of the first query and the second document of the second query have inclination towards male gender and represent supervisor and governor as male-dominated positions. However, these biased documents have lower position in the re-ranked list of our proposed fairness-aware version of the model. We note that none of these biased documents are not considered as the relevance judgment documents of these queries. Therefore, ranking these documents in a lower position would not impact on the performance of the model.
 #### Table 1: Top 3 re-ranked documents by the original BERT-Tiny model.
@@ -28,7 +28,7 @@ Table 1 shows top 3 documents of the re-ranked list of documents that are ranked
 </table>
 
 ## Retrieval Effectiveness
-In order to investigate how our proposed negative sampling strategy affects retrieval effectiveness, we re-rank MS MARCO dev small dataset which is the common dataset for testing the performance of the model. As shown in Table 2, we can see that retrieval effectiveness remains statistically comparable to the base ranker and no statistically significant changes occur in terms of performance. Due to the space limitation by github, we have uploaded trained neural ranking models, original training dataset, fairness-aware training dataset, and trec run files of MS MARCO dev small here.
+In order to investigate how our proposed negative sampling strategy affects retrieval effectiveness, we re-rank MS MARCO dev small dataset which is the common dataset for testing the performance of the model. As shown in Table 2, we can see that retrieval effectiveness remains statistically comparable to the base ranker and no statistically significant changes occur in terms of performance. 
 
 #### Table 2: Comparison between the performance (MRR@10) of  the base ranker and the ranker trained based on our proposed negative sampling strategy on MS MARCO Dev Set.
 <table class="tg">
@@ -91,7 +91,7 @@ We adopt two bias measurement metrics to calculate the level of biases within th
   <tr>
     <td class="tg-0lax" rowspan="6">QS1</td>
     <td class="tg-0lax" rowspan="2">BERT<br>(base uncased)</td>
-    <td class="tg-7zrl">Original <a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/1765_neutral_queries/bert_base_uncased/bert_base_uncased.trec" target="_top"> (Run)</td>
+    <td class="tg-7zrl">Original <a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/1765_neutral_queries/bert_base_uncased/ranked_list_original.trec" target="_top"> (Run)</td>
     <td class="tg-8d8j">0.3494</td>
     <td class="tg-8d8j">0.7764</td>
     <td class="tg-8d8j">-</td>
@@ -101,7 +101,7 @@ We adopt two bias measurement metrics to calculate the level of biases within th
     <td class="tg-8d8j">-</td>
   </tr>
   <tr>
-    <td class="tg-7zrl">Ours</td>
+    <td class="tg-7zrl">Ours <br><a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/1765_neutral_queries/bert_base_uncased/ranked_list_fairness_aware.trec" target="_top"> (Run)</td>
     <td class="tg-8d8j">0.3266</td>
     <td class="tg-8d8j">0.8673</td>
     <td class="tg-8d8j">11.71%</td>
@@ -112,7 +112,7 @@ We adopt two bias measurement metrics to calculate the level of biases within th
   </tr>
   <tr>
     <td class="tg-0lax" rowspan="2">DistilRoBERTa <br>(base)</td>
-    <td class="tg-7zrl">Original</td>
+    <td class="tg-7zrl">Original <a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/1765_neutral_queries/distilroberta_base/ranked_list_original.trec" target="_top"> (Run)</td>
     <td class="tg-8d8j">0.3382</td>
     <td class="tg-8d8j">0.7805</td>
     <td class="tg-8d8j">-</td>
@@ -122,7 +122,7 @@ We adopt two bias measurement metrics to calculate the level of biases within th
     <td class="tg-8d8j">-</td>
   </tr>
   <tr>
-    <td class="tg-7zrl">Ours</td>
+    <td class="tg-7zrl">Ours <br><a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/1765_neutral_queries/distilroberta_base/ranked_list_fairness_aware.trec" target="_top"> (Run)</td>
     <td class="tg-8d8j">0.3152</td>
     <td class="tg-8d8j">0.8806</td>
     <td class="tg-8d8j">12.83%</td>
@@ -133,7 +133,7 @@ We adopt two bias measurement metrics to calculate the level of biases within th
   </tr>
   <tr>
     <td class="tg-0lax" rowspan="2">ELECTRA<br>(base)</td>
-    <td class="tg-7zrl">Original</td>
+    <td class="tg-7zrl">Original <a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/1765_neutral_queries/electra_base/ranked_list_original.trec" target="_top"> (Run)</td>
     <td class="tg-8d8j">0.3265</td>
     <td class="tg-8d8j">0.7808</td>
     <td class="tg-8d8j">-</td>
@@ -143,7 +143,7 @@ We adopt two bias measurement metrics to calculate the level of biases within th
     <td class="tg-8d8j">-</td>
   </tr>
   <tr>
-    <td class="tg-7zrl">Ours</td>
+    <td class="tg-7zrl">Ours <br><a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/1765_neutral_queries/electra_base/ranked_list_fairness_aware.trec" target="_top"> (Run)</td>
     <td class="tg-8d8j">0.3018</td>
     <td class="tg-8d8j">0.8767</td>
     <td class="tg-8d8j">12.28%</td>
@@ -155,7 +155,7 @@ We adopt two bias measurement metrics to calculate the level of biases within th
   <tr>
     <td class="tg-0lax" rowspan="6">QS2</td>
     <td class="tg-0lax" rowspan="2">BERT<br>(base uncased)</td>
-    <td class="tg-7zrl">Original</td>
+    <td class="tg-7zrl">Original <a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/215_neutral_queries/bert_base_uncased/ranked_list_original.trec" target="_top"> (Run)</td>
     <td class="tg-8d8j">0.2229</td>
     <td class="tg-8d8j">0.8779</td>
     <td class="tg-8d8j">-</td>
@@ -165,7 +165,7 @@ We adopt two bias measurement metrics to calculate the level of biases within th
     <td class="tg-8d8j">-</td>
   </tr>
   <tr>
-    <td class="tg-7zrl">Ours</td>
+    <td class="tg-7zrl">Ours <br><a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/215_neutral_queries/bert_base_uncased/ranked_list_fairness_aware.trec" target="_top"> (Run)</td>
     <td class="tg-8d8j">0.2265</td>
     <td class="tg-8d8j">0.9549</td>
     <td class="tg-8d8j">8.77%</td>
@@ -176,7 +176,7 @@ We adopt two bias measurement metrics to calculate the level of biases within th
   </tr>
   <tr>
     <td class="tg-0lax" rowspan="2">DistilRoBERTa <br>(base)</td>
-    <td class="tg-7zrl">Original</td>
+    <td class="tg-7zrl">Original <a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/215_neutral_queries/distilroberta_base/ranked_list_original.trec" target="_top"> (Run)</td>
     <td class="tg-8d8j">0.2198</td>
     <td class="tg-8d8j">0.8799</td>
     <td class="tg-8d8j">-</td>
@@ -186,7 +186,7 @@ We adopt two bias measurement metrics to calculate the level of biases within th
     <td class="tg-8d8j">-</td>
   </tr>
   <tr>
-    <td class="tg-7zrl">Ours</td>
+    <td class="tg-7zrl">Ours <br><a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/215_neutral_queries/distilroberta_base/ranked_list_fairness_aware.trec" target="_top"> (Run)</td>
     <td class="tg-8d8j">0.2135</td>
     <td class="tg-8d8j">0.9581</td>
     <td class="tg-8d8j">8.89%</td>
@@ -197,7 +197,7 @@ We adopt two bias measurement metrics to calculate the level of biases within th
   </tr>
   <tr>
     <td class="tg-0lax" rowspan="2">ELECTRA<br>(base)</td>
-    <td class="tg-7zrl">Original</td>
+    <td class="tg-7zrl">Original <a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/215_neutral_queries/electra_base/ranked_list_original.trec" target="_top"> (Run)</td>
     <td class="tg-8d8j">0.2296</td>
     <td class="tg-8d8j">0.8857</td>
     <td class="tg-8d8j">-</td>
@@ -207,7 +207,7 @@ We adopt two bias measurement metrics to calculate the level of biases within th
     <td class="tg-8d8j">-</td>
   </tr>
   <tr>
-    <td class="tg-7zrl">Ours</td>
+    <td class="tg-7zrl">Ours <br><a href="https://github.com/lightweight-fairness/fairness_aware_neural_ranking/blob/main/trec_runs/215_neutral_queries/electra_base/ranked_list_fairness_aware.trec" target="_top"> (Run)</td>
     <td class="tg-8d8j">0.2081</td>
     <td class="tg-8d8j">0.9572</td>
     <td class="tg-8d8j">8.07%</td>
