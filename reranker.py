@@ -21,7 +21,7 @@ def main():
     model_name = args.checkpoint
     model = CrossEncoder(model_name, max_length=512)
 
-    data_folder = "/home/amin/projects/bias_projects/data_augmentation_approach/msmarco-data/"
+    data_folder = "/msmarco-data/"
     collection_filepath = os.path.join(data_folder, 'collection.tsv')
     corpus = {}
     with open(collection_filepath, 'r', encoding='utf8') as fIn:
